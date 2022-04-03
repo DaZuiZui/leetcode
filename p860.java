@@ -17,6 +17,8 @@ public class p860 {
             else if (bill == 10){
                 five--;
                 ten++;
+
+
             }
             //如果收到20元
             else if(bill == 20){
@@ -27,8 +29,12 @@ public class p860 {
                 }else{
                     five-=3;
                 }
+
+
             }
+
+            if(five < 0) return false;
         }
-        return five >= 0 ? true : false;
+        return true;
     }
 }
