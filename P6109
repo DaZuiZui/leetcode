@@ -1,0 +1,25 @@
+public class P6109 {
+    public static void main(String[] args) {
+
+    }
+
+    public int peopleAwareOfSecret(int n, int delay, int forget) {
+        int mod = (int) (1e9 + 7);
+        int[] dp = new int[n];
+        dp[0] = 1;
+
+        for(int i=0; i<n-1; i++){
+            for(int j=i+delay; j<Math.min(n, i+forget); j++){
+                dp[j] += dp[i];
+                dp[j] = dp[j] % mod;
+            }
+        }
+
+        int answer = 0;
+        for (int i = Math.max(0,n - forget); i < n; i++) {
+            answer += dp[i];
+            answer %= mod;
+        }
+        return answer;
+    }
+}
