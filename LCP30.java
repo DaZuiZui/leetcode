@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 public class LCP30 {
     public static void main(String[] args) {
         PriorityQueue<Integer> queue1 = new PriorityQueue<>();
-        queue1.add(-1);
+        queue1.add(-2);
         queue1.add(-3);
         queue1.add(-12);
         System.out.println(queue1);
