@@ -1,50 +1,48 @@
-package leccod;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class P54 {
     public static void main(String[] args) {
-        int[][] arr = {
-                {1,2,3},
-                {4,5,6},
-                {7,8,9}
-        };
-
-        System.out.println(new P54().spiralOrder(arr));;
+        System.out.println(new P54().spiralOrder(new int[][]{
+                {1, 2, 3,4}, {5, 6,7,8}, {9,10,11,12}
+        }));
     }
 
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> list = new ArrayList<>();
-        int top = 0 ,down = matrix.length-1;
-        int l   = 0 ,r    = matrix[0].length-1;
+        List<Integer> res = new ArrayList<>();
+        int n = matrix.length;
+        int m = matrix[0].length;
 
-        while(true){
-            for (int i = l; i <= r ; i++) {
-                list.add(matrix[top][i]);
-            }
-            top++;
-            if (l > r) break;
+        int tl = 0,bl = n-1;
+        int ll = 0,rl = m-1;
 
-            for (int i = top; i <= down ; i++) {
-                list.add(matrix[i][r]);
+        while (tl <= bl || ll <= rl){
+            for (int i = ll; i <= rl ; i++) {
+                res.add(matrix[tl][i]);
             }
-            r--;
-            if (top > down) break;
-
-            for (int i = r; i >= l ; i--) {
-                list.add(matrix[down][i]);
+            tl++;
+            if (ll > rl){
+                break;
             }
-            down--;
-            if (l >r) break;
-
-            for (int i = down; i >= top ; i--) {
-                list.add(matrix[i][l]);
+            for (int i = tl; i <= bl ; i++) {
+                res.add(matrix[i][rl]);
             }
-            l++;
-            if (top > down) break;
+            rl--;
+            if (tl > bl){
+                break;
+            }
+            for (int i = rl; i >= ll ; i--) {
+                res.add(matrix[bl][i]);
+            }
+            bl--;
+            if (ll > rl )break;
+            for (int i = bl; i >= tl ; i--) {
+                res.add(matrix[i][ll]);
+            }
+            ll++;
+            if (tl > bl) break;
         }
 
-        return list;
+        return res;
     }
 }
