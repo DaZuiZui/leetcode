@@ -1,55 +1,34 @@
-package leccod;
-
 public class P59 {
     public static void main(String[] args) {
-        int[][] ints = new P59().generateMatrix(3);
-        for (int i = 0; i < ints.length; i++) {
-            for (int j = 0; j < ints[0].length; j++) {
-                System.out.print(ints[i][j]+" ");
-            }
-            System.out.println();
-        }
+        new P59().generateMatrix(0);
     }
 
     public int[][] generateMatrix(int n) {
-        //如果为null
-        if (n==0){
-            return new int[][]{};
-        }
         int[][] arr = new int[n][n];
-        int top = 0, down = arr.length-1;
-        int l   = 0, r    = arr[0].length-1;
-        int currenNumber = 1;
-
-        while (true){
-            //设置从左到又
-            for (int i = l; i <= r; i++) {
-                arr[top][i] = currenNumber++;
+        int ll =0,rl = n-1;
+        int tl = 0,bl = n-1;
+        int num = 1;
+        while (ll <= rl || tl <= bl ){
+            //从左到右
+            for (int i = ll; i <= rl ; i++) {
+                arr[tl][i] = num++;
             }
-            top++;
-            if (l > r) break;
-
-            //设置从上到下
-            for (int i = top; i <= down; i++) {
-                arr[i][r] = currenNumber++;
+            tl++;
+            //从上到下
+            for (int i = tl; i <= bl ; i++) {
+               arr[i][rl] = num++;
             }
-            r--;
-            if (top > down) break;
-
-            //设置从又到左
-            for (int i = r; i >= l ; i--) {
-                arr[down][i] = currenNumber++;
+            rl--;
+            for (int i = rl; i >= ll ; i--) {
+                arr[bl][i] = num++;
             }
-            down--;
-            if (l > r) break;
-
-            //设置从下到上
-            for (int i = down ; i >= top ; i--) {
-                arr[i][l] = currenNumber++;
+            bl--;
+            for (int i = bl; i >= tl ; i--) {
+                arr[i][ll] = num++;
             }
-            l++;
-            if (top > down) break;
+            ll++;
         }
+
         return arr;
     }
 }
