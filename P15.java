@@ -1,43 +1,39 @@
-package leccod;
-
 import java.util.*;
 
 public class P15 {
     public static void main(String[] args) {
-        int[] arr = {-1,0,1,2,-1,-4};
-        System.out.println(new P15().threeSum(arr));
+        System.out.println(new P15().threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
     }
 
     public List<List<Integer>> threeSum(int[] nums) {
         Set<List<Integer>> set = new HashSet<>();
-
         Arrays.sort(nums);
-        int lengthofarr = nums.length;
-
-        for (int i = 0; i < lengthofarr; i++) {
-            int l = i +1;
-            int r = lengthofarr -1;
-
-            // R > L is to ensure that the length must be greater than or equal to 3
-            while(r > l){
-                if (nums[i] + nums[r] + nums[l] == 0 ){
-                    List list = new ArrayList();
-                    list.add(nums[i]);
-                    list.add(nums[r]);
-                    list.add(nums[l]);
-                    set.add(list);
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int l = i + 1;
+            int r = n-1;
+            while (l < r){
+                if (nums[i] + nums[l] + nums[r] == 0){
+                    List<Integer> tmp = new ArrayList<>();
+                    tmp.add(nums[i]);
+                    tmp.add(nums[l]);
+                    tmp.add(nums[r]);
                     l++;
                     r--;
-                }else if (nums[i] + nums[r] + nums[l] < 0){
+                    set.add(tmp);
+                }else if (nums[i] + nums[l] + nums[r] < 0){
                     l++;
                 }else{
-                     r--;
+                    r--;
                 }
             }
         }
 
-        List<List<Integer>> arrlist = new ArrayList<>();
-        arrlist.addAll(set);
-        return arrlist;
+        List<List<Integer>> res = new ArrayList<>();
+        for (List<Integer> list : set) {
+            res.add(list);
+        }
+
+        return res;
     }
 }
