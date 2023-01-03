@@ -1,39 +1,25 @@
-package leccod;
-
-import java.util.HashMap;
-
 public class P383 {
     public static void main(String[] args) {
 
     }
 
     public boolean canConstruct(String ransomNote, String magazine) {
-        if (ransomNote.length() == 0 && magazine.length() > 0){
-            return true;
-        }
-        if (magazine.length() < ransomNote.length()){
-            return false;
-        }
-        if (ransomNote.length() ==0 && magazine.length() == 0){
-            return false;
-        }
-        HashMap<Character,Integer> map = new HashMap<>();
+        int[] arr = new int[26];
+
         for (char c : magazine.toCharArray()) {
-            map.put(c,map.getOrDefault(c,0)+1);
+            arr[c-'a']++;
         }
 
         for (char c : ransomNote.toCharArray()) {
-            if (map.containsKey(c) == false){
+            arr[c-'a']--;
+        }
+
+        for (int i : arr) {
+            if (i < 0){
                 return false;
-            }else{
-                int temp = map.put(c,map.get(c));
-                if (--temp < 0){
-                    return false;
-                }else{
-                    map.put(c,temp);
-                }
             }
         }
+
         return true;
     }
 }
