@@ -1,32 +1,24 @@
-package leccod;
-
 public class P541 {
     public static void main(String[] args) {
-        System.out.println(new P541().reverseStr("abcd", 2));
+        System.out.println(new P541().reverseStr("abcdefg", 2));
     }
 
     public String reverseStr(String s, int k) {
-        StringBuilder res = new StringBuilder();
-        StringBuilder str = new StringBuilder(s);
-        for (int i = 0; i < s.length(); i+=k) {
-            if (i + k < s.length()){
-                StringBuilder stringBuilder = new StringBuilder(str.substring(i,k+i));
-                res.append(stringBuilder.reverse());
-                i+=k;
-                if (i + k < s.length()){
-                    stringBuilder = new StringBuilder(str.substring(i,k+i));
-                    res.append(stringBuilder);
-                }else{
-                    stringBuilder = new StringBuilder(str.substring(i,s.length()));
-                    res.append(stringBuilder);
-                }
-            }else{
-                StringBuilder stringBuilder = new StringBuilder(str.substring(i,s.length()));
-                res.append(stringBuilder.reverse());
-                break;
+        char[] chars = s.toCharArray();
+        int n = s.length();
+        for (int i = 0; i < n; i+= 2*k) {
+            int l = i;
+            int r = Math.min(n-1,i+k-1);
+            while (l < r){
+                chars[l] = (char)(chars[l] ^ chars[r]);
+                chars[r] = (char)(chars[l] ^ chars[r]);
+                chars[l] = (char)(chars[l] ^ chars[r]);
+                l++;
+                r--;
             }
         }
 
-        return res.toString();
+
+        return new String(chars);
     }
 }
