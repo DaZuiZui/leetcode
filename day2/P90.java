@@ -1,16 +1,18 @@
 package day2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class P90 {
     public static void main(String[] args) {
-        System.out.println(new P90().subsetsWithDup(new int[]{1, 2, 2}));
+        System.out.println(new P90().subsetsWithDup(new int[]{4,4,4,1,4}));
     }
 
     List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
         bfs(nums,0,new LinkedList<>());
         return res;
     }
@@ -28,7 +30,7 @@ public class P90 {
                 continue;
             }
             list.add(num[i]);
-            bfs(num, index+1, list);
+            bfs(num, i+1, list);
             list.removeLast();
         }
     }
