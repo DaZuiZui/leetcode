@@ -1,3 +1,5 @@
+package day5;
+
 public class P494 {
     public static void main(String[] args) {
 
@@ -8,25 +10,27 @@ public class P494 {
         for (int num : nums) {
             sum += num;
         }
-
-        if (sum < target){
-            return 0;
-        }else if (target < 0 && sum < -target){
-            return 0;
-        }
-        if ((sum+target)% 2!= 0){
+        int diff = sum - target;
+        //如果diff < 0 就代表 sum 比target小无法满足
+        //如果diff % 2 == 1 就代表无法满足，因为想让L - R == target 那么就必须满足 diff % 2 == 0
+        if (diff < 0 || diff % 2 != 0){
             return 0;
         }
 
-        int size = (sum+target)/2;
-        if(size < 0) size = -size;
+        //获取最大容量
+        int size = diff /2;
+
         int[] dp = new int[size+1];
-        dp[0] =1;
+
+        dp[0] = 1; //背包容量为0 有1种方法，就是不装
+        //遍历物品
         for (int i = 0; i < nums.length; i++) {
+            //遍历背包
             for (int j = size; j >= nums[i]; j--) {
-                dp[j] += dp[j - nums[i]];
+                dp[j] = dp[j-nums[i]]+1;
             }
         }
+
         return dp[size];
     }
 }
