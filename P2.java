@@ -1,51 +1,43 @@
-package leccod;
+package weekly335;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class P2 {
+    public class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode() {}
+      TreeNode(int val) { this.val = val; }
+      TreeNode(int val, TreeNode left, TreeNode right) {
+          this.val = val;
+          this.left = left;
+          this.right = right;
+      }
+    }
+
     public static void main(String[] args) {
 
     }
 
-    /*
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        //创建头节点，尾节点
-        ListNode head = null,foot = null;
-        //创建和
-        int sum = 0;
-        //创建进位
-        int carry = 0;
+    LinkedList<Long> list = new LinkedList<>();
+    public long kthLargestLevelSum(TreeNode root, int k) {
+        dfs(root,k);
+        list.sort((a,b)->{
+            return a > b ? 1 : -1;
+        });
+        return list.get(k);
+    }
 
-        while(true){
-            int val1 = l1 !=null ? l1.val : 0;
-            int val2 = l2 !=null ? l2.val : 0;
-            sum = val1 + val2 +carry;
-            //如果是第一次
-            if(head == null){
-                head = foot = new ListNode(sum % 10);
-            }else{
-                foot.next = new ListNode(sum % 10);
-                foot = foot.next;
-            }
-
-            //计算是否进位
-            carry = sum / 10;
-
-            if(l1 != null){
-                l1 = l1.next;
-            }
-
-            if(l2 != null){
-                l2 = l2.next;
-            }
-
-            if(l1 == null && l2 == null){
-                break;
-            }
+    public void dfs(TreeNode root, int index){
+        if (root == null) return;
+        if (index >= list.size()){
+            list.add(0l);
         }
-
-        if(carry > 0){
-            foot.next = new ListNode(carry);
-        }
-
-        return head;
-    }*/
+        list.set(index,list.get(index)+root.val);
+        dfs(root.left,index+1);
+        dfs(root.right,index+1);
+    }
 }
