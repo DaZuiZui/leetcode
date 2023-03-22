@@ -1,23 +1,20 @@
-package leccod;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class P27 {
-    public int removeElement(int[] nums, int val) {
-        List<Integer> list = new ArrayList();
+    public static void main(String[] args) {
+        new P27().removeElement(new int[]{3,2,2,3},3);
+    }
 
-        for(int i = 0 ; i< nums.length ;i++){
-            if(nums[i] != val){
-                list.add(nums[i]);
+    public int removeElement(int[] nums, int val) {
+        int slowPoint = 0;
+        int n = nums.length;
+        for (int fastPoint = 0; fastPoint < n; fastPoint++) {
+            if (nums[fastPoint] == val){
+
+            }else{
+                nums[slowPoint] = nums[fastPoint];
+                slowPoint++;
             }
         }
 
-        for(int i = 0 ;i<list.size() ;i++ ){
-            nums[i] = list.get(i);
-        }
-
-
-        return list.size();
+        return slowPoint;
     }
 }
